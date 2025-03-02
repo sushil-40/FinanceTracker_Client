@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
 import { toast } from "react-toastify";
+import { postNewUser } from "../../helpers/axiosHelper";
 export const SignUpForm = () => {
   const [form, setForm] = useState({});
   const fields = [
@@ -44,13 +45,14 @@ export const SignUpForm = () => {
       [name]: value,
     });
   };
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const { confirmPassword, ...rest } = form;
     if (confirmPassword !== rest.password) {
       return toast.error("Password does not match");
     }
-    console.log(form);
+    const { status, message } = await postNewUser(rest);
+    toast[status](message); //responding back from server router
   };
   return (
     <div className="border rounded p-4">

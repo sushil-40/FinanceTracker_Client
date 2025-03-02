@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { GrMoney } from "react-icons/gr";
 const financialTips = [
   {
     tip: "Live Below Your Means",
@@ -92,6 +93,10 @@ export const FinancialTips = () => {
         height: "100%",
       }}
     >
+      <div className="mb-5">
+        <GrMoney className="text-success" style={{ fontSize: "10rem" }} />
+        <div>Watch your Money Grow!</div>
+      </div>
       <h4>{tips}</h4>
       <div>
         "{quote}" - {author}
