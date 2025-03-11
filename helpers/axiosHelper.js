@@ -26,3 +26,14 @@ export const postNewUser = (data) => {
   };
   return apiProcessor(obj);
 };
+
+//Login User
+
+export const loginUser = (data) => {
+  const obj = {
+    method: "post",
+    url: rootApiEp + "/users/login",
+    data,
+  };
+  return apiProcessor(obj);
+};
