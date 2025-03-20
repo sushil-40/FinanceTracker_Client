@@ -10,6 +10,17 @@ import { GiBank } from "react-icons/gi";
 import { useUser } from "../../context/UserContext";
 
 export const Header = () => {
+  const { setUser } = useUser();
+  const handleOnLogOut = () => {
+    alert("sfs");
+    // 1. On Click logout delete accessJWT token from the local storage.
+
+    localStorage.removeItem("accessJWT");
+
+    // 2. Reset user object form the state
+    // we pass empty object to the custom context global hook so that it override the data with empty string
+    setUser({});
+  };
   // const data = useUser();
   // console.log(data);
   return (
@@ -19,23 +30,23 @@ export const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link className="nav-link" to="/signup">
+            <Nav.Link as={Link} to="/signup">
               <IoCreateSharp />
               Sign Up
-            </Link>
-            <Link className="nav-link" to="/">
+            </Nav.Link>
+            <Nav.Link as={Link} to="/">
               <TbLogin /> Login
-            </Link>
-            <Link className="nav-link" to="/dashboard">
+            </Nav.Link>
+            <Nav.Link as={Link} to="/dashboard">
               <RiDashboard3Fill />
               Dashboard
-            </Link>
-            <Link className="nav-link" to="/transaction">
+            </Nav.Link>
+            <Nav.Link as={Link} to="/transaction">
               <GiBank /> Transaction
-            </Link>
-            <Link className="nav-link" to="/">
+            </Nav.Link>
+            <Nav.Link onClick={handleOnLogOut} as={Link} to="/">
               <ImExit /> Logout
-            </Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
