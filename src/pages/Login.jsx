@@ -7,8 +7,11 @@ import { SignUpForm } from "../components/SignUpForm";
 import { BsGraphDownArrow } from "react-icons/bs";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { SignInForm } from "../components/SignInForm";
+// import { useUser } from "../context/UserContext";
 
 const Login = () => {
+  // const { user, setUser } = useUser();
+  // console.log(data);
   return (
     <Container className="p-5">
       <Row className="bg-dark p-5 rounded">

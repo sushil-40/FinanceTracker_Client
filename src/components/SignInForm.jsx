@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
 import { toast } from "react-toastify";
 import { loginUser, postNewUser } from "../../helpers/axiosHelper";
 import useForm from "../hooks/useForm";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
   password: "",
 };
 export const SignInForm = () => {
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
   const { form, handleOnChange } = useForm({ initialState });
+
+  useEffect(() => {
+    user?._id && navigate("/dashboard");
+  }, [user?._id, navigate]);
   // const [form, setForm] = useState({});
   const fields = [
     {
@@ -42,9 +50,17 @@ export const SignInForm = () => {
     e.preventDefault();
     console.log(form);
 
-    const { status, message, user, accessJWT } = await loginUser(form);
+    const pendingResp = loginUser(form);
+    toast.promise(pendingResp, {
+      pending: "Please wait .....",
+    });
+    const { status, message, user, accessJWT } = await pendingResp;
     toast[status](message);
     console.log(user, accessJWT);
+    setUser(user);
+
+    //save data to localStorage
+    localStorage.setItem("accessJWT", accessJWT);
   };
   return (
     <div className="border rounded p-4">
