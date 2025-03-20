@@ -10,9 +10,8 @@ import { GiBank } from "react-icons/gi";
 import { useUser } from "../../context/UserContext";
 
 export const Header = () => {
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const handleOnLogOut = () => {
-    alert("sfs");
     // 1. On Click logout delete accessJWT token from the local storage.
 
     localStorage.removeItem("accessJWT");
@@ -30,23 +29,32 @@ export const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/signup">
-              <IoCreateSharp />
-              Sign Up
-            </Nav.Link>
-            <Nav.Link as={Link} to="/">
-              <TbLogin /> Login
-            </Nav.Link>
-            <Nav.Link as={Link} to="/dashboard">
-              <RiDashboard3Fill />
-              Dashboard
-            </Nav.Link>
-            <Nav.Link as={Link} to="/transaction">
-              <GiBank /> Transaction
-            </Nav.Link>
-            <Nav.Link onClick={handleOnLogOut} as={Link} to="/">
-              <ImExit /> Logout
-            </Nav.Link>
+            {user?._id ? (
+              <>
+                {" "}
+                <Nav.Link as={Link} to="/dashboard">
+                  <RiDashboard3Fill />
+                  Dashboard
+                </Nav.Link>
+                <Nav.Link as={Link} to="/transaction">
+                  <GiBank /> Transaction
+                </Nav.Link>
+                <Nav.Link onClick={handleOnLogOut} as={Link} to="/">
+                  <ImExit /> Logout
+                </Nav.Link>
+              </>
+            ) : (
+              <>
+                {" "}
+                <Nav.Link as={Link} to="/signup">
+                  <IoCreateSharp />
+                  Sign Up
+                </Nav.Link>
+                <Nav.Link as={Link} to="/">
+                  <TbLogin /> Login
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
