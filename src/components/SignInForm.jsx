@@ -6,20 +6,26 @@ import { toast } from "react-toastify";
 import { loginUser, postNewUser } from "../../helpers/axiosHelper";
 import useForm from "../hooks/useForm";
 import { useUser } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
   password: "",
 };
 export const SignInForm = () => {
+  const location = useLocation();
+  console.log(location);
+
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const { form, handleOnChange } = useForm({ initialState });
 
+  // for redirection after refreshing browser or opening in new tab after login
+  const goTo = location?.state?.from?.pathname || "/dashboard";
   useEffect(() => {
-    user?._id && navigate("/dashboard");
-  }, [user?._id, navigate]);
+    // user?._id && navigate("/dashboard");
+    user?._id && navigate(goTo);
+  }, [user?._id, navigate, goTo]);
   // const [form, setForm] = useState({});
   const fields = [
     {
@@ -38,17 +44,9 @@ export const SignInForm = () => {
       name: "password",
     },
   ];
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log(name, value);
-  //   setForm({
-  //     ...form,
-  //     [name]: value,
-  //   });
-  // };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
 
     const pendingResp = loginUser(form);
     toast.promise(pendingResp, {
