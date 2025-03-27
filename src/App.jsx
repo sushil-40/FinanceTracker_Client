@@ -26,7 +26,7 @@ function App() {
     // console.log(user);
     setUser(user);
   };
-  toast.success("Show your message!");
+  // toast.success("Show your message!");
   return (
     <div className="wrapper">
       <Routes>
