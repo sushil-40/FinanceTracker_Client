@@ -7,3 +7,18 @@
 .main {
   height: calc(100vh -150px);
 }
+
+.table,
+tr,
+td,
+th {
+  background: transparent !important;
+  color: white !important;
+}
+
+.in {
+  color: greenyellow !important;
+}
+.out {
+  color: red !important;
+}
