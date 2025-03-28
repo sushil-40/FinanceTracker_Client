@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 export const TransactionTable = () => {
   const [displayTrans, setDisplayTrans] = useState([]);
   const { transactions, toggleModal } = useUser();
+  const [idsToDelete, setIdsToDelete] = useState([]);
 
   useEffect(() => {
     setDisplayTrans(transactions);
   }, [transactions]);
-  console.log(transactions);
+  // console.log(transactions);
 
   // Calculating total
   const balance = displayTrans.reduce((acc, tran) => {
@@ -27,6 +28,26 @@ export const TransactionTable = () => {
     setDisplayTrans(filteredArg);
   };
 
+  const handleOnSelect = (e) => {
+    const { checked, value } = e.target;
+    console.log(checked, value);
+
+    if (value === "all") {
+      checked
+        ? setIdsToDelete(displayTrans.map((item) => item._id))
+        : setIdsToDelete([]);
+
+      return;
+    }
+
+    if (checked) {
+      setIdsToDelete([...idsToDelete, value]);
+    } else {
+      setIdsToDelete(idsToDelete.filter((id) => id !== value));
+    }
+    return;
+  };
+  console.log(idsToDelete);
   return (
     <>
       <div className="d-flex justify-content-between pt-3 mb-4">
@@ -39,6 +60,14 @@ export const TransactionTable = () => {
             <FaPlusSquare /> Add New Transaction
           </Button>
         </div>
+      </div>
+      <div>
+        <Form.Check
+          label="Select All"
+          value="all"
+          onChange={handleOnSelect}
+          checked={displayTrans.length === idsToDelete.length}
+        />
       </div>
       <Table striped hover>
         <thead>
@@ -55,7 +84,15 @@ export const TransactionTable = () => {
             displayTrans.map((t, i) => (
               <tr key={t._id}>
                 <td>{i + 1}</td>
-                <td>{t.createdAt.slice(0, 10)}</td>
+                <td>
+                  {" "}
+                  <Form.Check
+                    label={t.createdAt.slice(0, 10)}
+                    value={t._id}
+                    onChange={handleOnSelect}
+                    checked={idsToDelete.includes(t._id)}
+                  />
+                </td>
                 <td>{t.title}</td>
                 {t.type === "expenses" && (
                   <>
@@ -98,6 +135,13 @@ export const TransactionTable = () => {
           </tr>
         </tbody>
       </Table>
+      {idsToDelete.length > 0 && (
+        <div className="d-grid">
+          <Button variant="danger">
+            Delete {idsToDelete.length} transaction(s)
+          </Button>
+        </div>
+      )}
     </>
   );
 };
