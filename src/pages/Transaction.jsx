@@ -6,6 +6,7 @@ import { TransactionFom } from "../components/TransactionFom";
 import { useEffect } from "react";
 import { getTransactions } from "../../../ft_api/models/transaction/transactionModel";
 import { useUser } from "../context/UserContext";
+import { CustomModal } from "../components/CustomModal";
 
 const Transaction = () => {
   const { getTransactions } = useUser();
@@ -16,7 +17,9 @@ const Transaction = () => {
     <Container className="p-5">
       <Row className="bg-dark p-5 rounded">
         <Col>
-          <TransactionFom />
+          <CustomModal>
+            <TransactionFom />
+          </CustomModal>
           <hr />
           <TransactionTable />
         </Col>

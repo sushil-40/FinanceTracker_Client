@@ -16,7 +16,7 @@ const initialState = {
 
 export const TransactionFom = () => {
   const { form, setForm, handleOnChange } = useForm(initialState);
-
+  const { getTransactions, toggleModal } = useUser();
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,10 +29,13 @@ export const TransactionFom = () => {
 
     if (status === "success") {
       setForm(initialState);
-      getTransactions();
-    }
 
-    // call the function to fetch all transaction
+      // call the function to fetch all transaction
+      getTransactions();
+
+      //close the modal !
+      toggleModal(false);
+    }
   };
 
   const fields = [

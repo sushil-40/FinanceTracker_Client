@@ -5,7 +5,7 @@ import { FaPlusSquare } from "react-icons/fa";
 import { useEffect, useState } from "react";
 export const TransactionTable = () => {
   const [displayTrans, setDisplayTrans] = useState([]);
-  const { transactions } = useUser();
+  const { transactions, toggleModal } = useUser();
 
   useEffect(() => {
     setDisplayTrans(transactions);
@@ -35,7 +35,7 @@ export const TransactionTable = () => {
           <Form.Control type="text" onChange={handleOnSearch} />
         </div>
         <div>
-          <Button>
+          <Button onClick={() => toggleModal(true)}>
             <FaPlusSquare /> Add New Transaction
           </Button>
         </div>
