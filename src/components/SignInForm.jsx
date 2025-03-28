@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
 import { toast } from "react-toastify";
-import { loginUser, postNewUser } from "../../helpers/axiosHelper";
+import { loginUser } from "../../helpers/axiosHelper";
 import useForm from "../hooks/useForm";
 import { useUser } from "../context/UserContext";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const initialState = {
 };
 export const SignInForm = () => {
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   const { user, setUser } = useUser();
   const navigate = useNavigate();
@@ -23,10 +23,9 @@ export const SignInForm = () => {
   // for redirection after refreshing browser or opening in new tab after login
   const goTo = location?.state?.from?.pathname || "/dashboard";
   useEffect(() => {
-    // user?._id && navigate("/dashboard");
     user?._id && navigate(goTo);
   }, [user?._id, navigate, goTo]);
-  // const [form, setForm] = useState({});
+
   const fields = [
     {
       label: "Email",
@@ -54,7 +53,7 @@ export const SignInForm = () => {
     });
     const { status, message, user, accessJWT } = await pendingResp;
     toast[status](message);
-    console.log(user, accessJWT);
+
     setUser(user);
 
     //save data to localStorage

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GrMoney } from "react-icons/gr";
 const financialTips = [
   {
@@ -85,7 +85,7 @@ export const FinancialTips = () => {
     }, 3000);
   }, []);
 
-  const { tips, quote, advice, author } = showQuote;
+  const { tips, quote, author } = showQuote;
   return (
     <div
       className="d-flex flex-column justify-content-center"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 const handleOnChange = ({ e, form, setForm }) => {
   const { name, value } = e.target;
-  console.log(name, value);
+
   setForm({
     ...form,
     [name]: value,

@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 import { useUser } from "../context/UserContext";
-import { Button, Form, Toast } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { FaPlusSquare } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { deleteTransactions } from "../../helpers/axiosHelper";
@@ -13,7 +13,6 @@ export const TransactionTable = () => {
   useEffect(() => {
     setDisplayTrans(transactions);
   }, [transactions]);
-  // console.log(transactions);
 
   // Calculating total
   const balance = displayTrans.reduce((acc, tran) => {
@@ -32,7 +31,6 @@ export const TransactionTable = () => {
 
   const handleOnSelect = (e) => {
     const { checked, value } = e.target;
-    console.log(checked, value);
 
     if (value === "all") {
       checked
@@ -56,7 +54,6 @@ export const TransactionTable = () => {
         `Are you sure you want to delete ${idsToDelete.length} transactions`
       )
     ) {
-      // console.log(idsToDelete);
       const pending = deleteTransactions(idsToDelete);
       const { status, message } = await pending;
       toast.promise(pending, {
@@ -73,7 +70,11 @@ export const TransactionTable = () => {
       <div className="d-flex justify-content-between pt-3 mb-4">
         <div>{displayTrans.length} transaction(s) found.</div>
         <div>
-          <Form.Control type="text" onChange={handleOnSearch} />
+          <Form.Control
+            placeholder="search transactions"
+            type="text"
+            onChange={handleOnSearch}
+          />
         </div>
         <div>
           <Button onClick={() => toggleModal(true)}>
@@ -128,23 +129,6 @@ export const TransactionTable = () => {
                 )}
               </tr>
             ))}
-
-          {/* <tr>
-          <td>2</td>
-          <td>23-03-2025</td>
-
-          <td>Shopping</td>
-          <td>-$300</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>23-03-2025</td>
-
-          <td>Found on The Street</td>
-          <td></td>
-          <td>$500</td>
-        </tr> */}
 
           <tr className="fw-bold text-center">
             <td colSpan={3}>Total Balance</td>

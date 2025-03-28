@@ -1,11 +1,10 @@
-import React, { useState } from "react";
 import { CustomInput } from "./CustomInput";
 import useForm from "../hooks/useForm";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/esm/Form";
 import { postNewTransaction } from "../../helpers/axiosHelper";
 import { toast } from "react-toastify";
-import { getTransactions } from "../../../ft_api/models/transaction/transactionModel";
+
 import { useUser } from "../context/UserContext";
 const initialState = {
   type: "", //income or expenses
@@ -39,13 +38,6 @@ export const TransactionFom = () => {
   };
 
   const fields = [
-    // {
-    //   label: "Type",
-    //   placeholder: "",
-    //   required: true,
-    //   type: "text",
-    //   name: "name",
-    // },
     {
       label: "Title",
       placeholder: "Salary",
