@@ -1,11 +1,13 @@
 import Table from "react-bootstrap/Table";
 import { useUser } from "../context/UserContext";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Toast } from "react-bootstrap";
 import { FaPlusSquare } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { deleteTransactions } from "../../helpers/axiosHelper";
+import { toast } from "react-toastify";
 export const TransactionTable = () => {
   const [displayTrans, setDisplayTrans] = useState([]);
-  const { transactions, toggleModal } = useUser();
+  const { transactions, toggleModal, getTransactions } = useUser();
   const [idsToDelete, setIdsToDelete] = useState([]);
 
   useEffect(() => {
@@ -47,7 +49,25 @@ export const TransactionTable = () => {
     }
     return;
   };
-  console.log(idsToDelete);
+
+  const handleOnDelete = async () => {
+    if (
+      confirm(
+        `Are you sure you want to delete ${idsToDelete.length} transactions`
+      )
+    ) {
+      // console.log(idsToDelete);
+      const pending = deleteTransactions(idsToDelete);
+      const { status, message } = await pending;
+      toast.promise(pending, {
+        pending: "Please wait .....!",
+      });
+      toast[status](message);
+
+      status === "success" && getTransactions() && setIdsToDelete([]);
+    }
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between pt-3 mb-4">
@@ -137,7 +157,7 @@ export const TransactionTable = () => {
       </Table>
       {idsToDelete.length > 0 && (
         <div className="d-grid">
-          <Button variant="danger">
+          <Button variant="danger" onClick={handleOnDelete}>
             Delete {idsToDelete.length} transaction(s)
           </Button>
         </div>
