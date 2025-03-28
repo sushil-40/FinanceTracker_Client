@@ -2,21 +2,37 @@ import Table from "react-bootstrap/Table";
 import { useUser } from "../context/UserContext";
 import { Button, Form } from "react-bootstrap";
 import { FaPlusSquare } from "react-icons/fa";
+import { useEffect, useState } from "react";
 export const TransactionTable = () => {
+  const [displayTrans, setDisplayTrans] = useState([]);
   const { transactions } = useUser();
+
+  useEffect(() => {
+    setDisplayTrans(transactions);
+  }, [transactions]);
   console.log(transactions);
 
   // Calculating total
-  const balance = transactions.reduce((acc, tran) => {
+  const balance = displayTrans.reduce((acc, tran) => {
     return tran.type === "income" ? acc + tran.amount : acc - tran.amount;
   }, 0);
+
+  const handleOnSearch = (e) => {
+    const { value } = e.target;
+
+    const filteredArg = transactions.filter(({ title }) => {
+      return title.toLowerCase().includes(value.toLowerCase());
+    });
+
+    setDisplayTrans(filteredArg);
+  };
 
   return (
     <>
       <div className="d-flex justify-content-between pt-3 mb-4">
-        <div>{transactions.length} transaction(s) found.</div>
+        <div>{displayTrans.length} transaction(s) found.</div>
         <div>
-          <Form.Control type="text" />
+          <Form.Control type="text" onChange={handleOnSearch} />
         </div>
         <div>
           <Button>
@@ -35,8 +51,8 @@ export const TransactionTable = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions.length > 0 &&
-            transactions.map((t, i) => (
+          {displayTrans.length > 0 &&
+            displayTrans.map((t, i) => (
               <tr key={t._id}>
                 <td>{i + 1}</td>
                 <td>{t.createdAt.slice(0, 10)}</td>

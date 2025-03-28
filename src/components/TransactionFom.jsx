@@ -5,6 +5,8 @@ import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/esm/Form";
 import { postNewTransaction } from "../../helpers/axiosHelper";
 import { toast } from "react-toastify";
+import { getTransactions } from "../../../ft_api/models/transaction/transactionModel";
+import { useUser } from "../context/UserContext";
 const initialState = {
   type: "", //income or expenses
   title: "", //salary , expenses
@@ -14,6 +16,7 @@ const initialState = {
 
 export const TransactionFom = () => {
   const { form, setForm, handleOnChange } = useForm(initialState);
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,7 +27,10 @@ export const TransactionFom = () => {
     const { status, message } = await pending;
     toast[status](message);
 
-    status === "success" && setForm(initialState);
+    if (status === "success") {
+      setForm(initialState);
+      getTransactions();
+    }
 
     // call the function to fetch all transaction
   };
