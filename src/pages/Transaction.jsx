@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import { TransactionTable } from "../components/TransactionTable";
 import { TransactionFom } from "../components/TransactionFom";
 import { useEffect } from "react";
-import { getTransactions } from "../../../ft_api/models/transaction/transactionModel";
+// import { getTransactions } from "../../../ft_api/models/transaction/transactionModel";
 import { useUser } from "../context/UserContext";
 import { CustomModal } from "../components/CustomModal";
 
