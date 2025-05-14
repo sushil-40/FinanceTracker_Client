@@ -12,7 +12,7 @@ const SignUp = () => {
         <Col md={6}>
           <FinancialTips />
         </Col>
-        <Col>
+        <Col className="mt-2">
           <SignUpForm />
         </Col>
       </Row>

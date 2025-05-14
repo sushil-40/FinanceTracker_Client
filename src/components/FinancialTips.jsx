@@ -88,7 +88,7 @@ export const FinancialTips = () => {
   const { tips, quote, author } = showQuote;
   return (
     <div
-      className="d-flex flex-column justify-content-center"
+      className="d-flex flex-column justify-content-center signup-bg"
       style={{
         height: "100%",
       }}
