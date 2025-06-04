@@ -1,13 +1,5 @@
-// install (please try to align the version of installed @nivo packages)
-// yarn add @nivo/pie
+/* eslint-disable react/prop-types */
 import { ResponsivePie } from "@nivo/pie";
-
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-
 const IncomeExpensePieChart = ({ data }) => (
   <ResponsivePie
     data={data}

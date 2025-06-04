@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { ResponsiveLine } from "@nivo/line";
 
 const IncomeExpenseTrendChart = ({ data }) => (

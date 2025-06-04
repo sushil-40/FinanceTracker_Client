@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 // BarChart.js
-import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
 
 const IncomeExpenseBarChart = ({ data }) => {
