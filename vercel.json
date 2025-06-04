@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.js",
+      "src": "package.json",
       "use": "@vercel/static-build"
     }
   ],
@@ -11,5 +11,7 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "buildCommand": "yarn build",
+  "outputDirectory": "dist"
 }
