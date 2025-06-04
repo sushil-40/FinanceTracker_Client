@@ -8,8 +8,8 @@ import {
   FaMoneyBillAlt,
 } from "react-icons/fa";
 import IncomeExpensePieChart from "./chart/IncomeExpensePieChart.jsx";
-import IncomeTrendChart from "./chart/IncomeExpenseTrendChart.jsx";
-import IncomeExpenseBarChart from "./chart/incomeExpenseBarChart.jsx";
+
+import IncomeExpenseBarChart from "./chart/IncomeExpenseBarChart.jsx";
 import { useUser } from "../context/UserContext";
 import IncomeExpenseTrendChart from "./chart/IncomeExpenseTrendChart.jsx";
 export const DashboardChart = () => {
